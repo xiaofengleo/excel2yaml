@@ -1,0 +1,174 @@
+survey:
+  date: !!python/object/apply:pandas._libs.tslibs.timestamps.Timestamp
+  - 1556302177205000000
+  - null
+  - null
+  version: 1
+  creator:
+    name: ' Markus Fiebig (Cathrine Lund Myhre)'
+    email: clm@nilu.no
+  infrastructure:
+    acronym: .nan
+    name: ACTRIS - In-Situ unit
+    website: .nan
+    domain: atmosphere
+    URL/IRI of dataset: http://ebas.nilu.no/DataSets.aspx?stations=NO0002R&projects=ACTRIS&InstrumentTypes=dmps&components=particle_number_size_distribution&fromDate=2016-01-01&toDate=2017-12-31
+    URL of discovery portal: http://ebas.nilu.no/
+  repositories:
+  - URL: actris.nilu.no
+    name: ACTRIS
+    kind:
+    - metadata repository
+    system: false
+    landingpage: false
+    assigned: false
+    provider: false
+    include_metadata:
+    - false
+    certification:
+    - None
+    policies:
+    - data management plan
+    registries:
+    - re3data.org
+    persistency: 10 years
+    access_mechanism:
+      authentication: custom
+      access_protocol: https://www.w3.org/wiki/UriSchemes/http
+      access_without: 1
+      own_user_database: false
+      ORCID: false
+      major-access: foo
+      authorization: password
+      authorization_for_accessing_content: Partially
+      data_license_in_use:
+      - None
+      data_license_iri:
+      - http://actris.nilu.no/Content/Documents/DataPolicy.pdf
+      metadata_openly: false
+      major_access: HTTP
+  - URL: .nan
+    name: .nan
+    kind:
+    - .nan
+    system: .nan
+    landingpage: .nan
+    assigned: planned automatically
+    provider: not clarified for general PIDs, BibSYS / DataCITE for DOIs
+    include_metadata:
+    - planned
+    certification:
+    - 'no'
+    policies:
+    - partially, data policy, data submission instructions, version control
+    registries:
+    - WIS, GEOSS, re3data.org
+    persistency: implicitly, funded by policy framework
+    access_mechanism:
+      authentication: home-made, web-interface login
+      access_protocol: https://www.opendap.org/
+      access_without: 'Yes'
+      own_user_database: 'yes'
+      ORCID: 'no'
+      major-access: foo
+      authorization: 'If so for a few data set: password'
+      authorization_for_accessing_content: 'No'
+      data_license_in_use:
+      - none yet
+      data_license_iri:
+      - .nan
+      metadata_openly: 'yes'
+      major_access: ???
+  data:
+    type_name:
+    - time series
+    - time series
+    format_name: EBAS NASA Ames 1001, netCDF-CF
+    metadata_types_in:
+    - Nasa Ames format for data exchange
+    - yes, all metadata are stored in header
+    registered_data:
+    - false
+    - not yet.
+    search_on_data: yes, structured search on discovery metadata
+  metadata:
+    schema: []
+    URL: .nan
+    name: .nan
+    provenance_fields:
+    - false
+    - not yet.
+    machine_readable: .nan
+    categories_defined: as long as defined vocabulary is available
+    PIDs_included: 'no'
+    primary_storage: relational database
+    export_format:
+    - NetCDF
+    - XML, metadata header, CSV
+  search_engine: .nan
+  exchange:
+  - false
+  - OAI-PMH
+  local_search: http://ebas.nilu.no
+  external_search:
+  - false
+  - 'yes'
+  access_policy: 'no'
+  metadata_longevity: .nan
+  machine_actionable: 'no'
+  IRI_of_machine: https://thredds.nilu.no/thredds/iso/testAll/NO0042G.20170101033500.20181008000000.online_gc..air.1y.3h.NO01L_Medusa-9.NO01L_AGAGE.lev2.nc?catalog=http%3A%2F%2Fthredds.nilu.no%2Fthredds%2Fcatalog%2FtestAll%2Fcatalog.html&dataset=testDatasetScan%2FNO0042G.20170101033500.20181008000000.online_gc..air.1y.3h.NO01L_Medusa-9.NO01L_AGAGE.lev2.nc
+  vocabularies:
+  - IRI: http://cfconventions.org/latest.html
+    name: CF standard names
+    type: thesaurus
+    topic: domain-specific
+    specification language: CF Standard Names
+  - IRI: .nan
+    name: .nan
+    type: .nan
+    topic: .nan
+    specification language: https://geo-ide.noaa.gov/wiki/index.php?title=ISO_19115_and_19115-2_CodeList_Dictionaries
+  data_management_plans:
+    specific_DMO_tools: 'no'
+    data_publishing:
+    - false
+    - check semantic structure, sanity and consistency of metadata and data, manual
+      inspection (please give more examples what is meant here).
+    compliance: .nan
+  data processing:
+    special_data:
+    - false
+    - 'yes'
+    workflow:
+    - false
+    - 'yes'
+    distributed_workflows:
+    - false
+    - 'no'
+    other_analysis:
+    - Google Analytics
+    - RRT data production, QC tools
+    data_products:
+    - elaborated products
+    - 'yes'
+  fairness:
+    data_findability:
+      data_findable: partly
+      gaps:
+      - PIDs
+      - .nan
+    data_accessibility:
+      data_accessible: 'yes'
+      gaps:
+      - Machine accesability
+      - .nan
+    data_interoperability:
+      data_interoperable: partly
+      gaps:
+      - harmonising vocabularies
+      - .nan
+    data_re-usability:
+      data_reusable: partly
+      gaps:
+      - provenance information
+      - .nan
