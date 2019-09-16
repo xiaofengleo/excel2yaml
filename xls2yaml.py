@@ -77,8 +77,8 @@ for col in colNumHeads:
     #print(col, nextcol)
     if(col < nextcol):
         i = 0 #i indicatic the starting row, because some excel files starts at different rows
-        print(df.iat[0,col])
-        print(df.iat[1,col])
+        #print(df.iat[0,col])
+        #print(df.iat[1,col])
         data['survey']['date'] = df.iat[i+1,col]#
         data['survey']['version'] = df.iat[i+2,col]
         data['survey']['creator']['name'] = df.iat[i+3,col]
