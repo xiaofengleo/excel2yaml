@@ -1,0 +1,262 @@
+##
+## author: Xiaofeng Liao, Zhiming Zhao, Barbara Magagna
+##         University of Amsterdam
+## date: 22 Aug, 2019
+##
+
+##
+import yaml
+from pandas import *
+import pandas as pd
+import sys
+from pandas import ExcelWriter
+from pandas import ExcelFile
+import io
+
+
+#mapping from excel column to index
+Letter2Number = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8,
+                 'J':9, 'K':10, 'L':11, 'M':12, 'N':13, 'O':14, 'P':15, 'Q':16,
+                 'R':17,'S':18, 'T':19, 'U':20, 'V':21, 'W':22, 'X':23, 'Y':24,
+                 'Z':25,'AA':26,'AB':27,'AC':28,'AD':29,'AE':30,'AF':31,'AG':32,
+                 'AH':33,'AI':34,'AJ':35,'AK':36,'AL':37,'AM':38,'AN':39,'AO':40,
+                 'AP':41,'AQ':42,'AR':43,'AS':44,'AT':45,'AU':46,'AV':47,'AW':48,
+                 'AX':49,'AY':50,'AZ':51}
+
+
+
+columns = input('please input the columns you want to grab contents from,\n each column separated by a comma, \n Both captial and small letters are fine. \n Like F,I \n')
+cols = columns.strip().split(',')
+UCols = []
+for col in cols:
+    Ucol = col.strip().upper()
+    UCols.append(Ucol)
+#print(UCols)
+colNumHeads = []
+for col in UCols:
+    colNumHeads.append(Letter2Number[col])
+#print(colNumHeads)
+
+#dictionary to hold the yaml structure
+
+
+data = {'survey':
+        {  'date': 'yyyy-mm-dd',
+           'version': 1.0,
+            'creator':
+               {'name': 'foo',
+                'email':'foo'
+               },#end creator
+            'infrastructure':
+               {'acronym':'foo',
+                'name':'foo',
+                'website':'foo',
+                'domain':['foo','foo'],#list
+                'URL/IRI of dataset':'foo',
+                'URL of discovery portal':'foo'
+               },#end infrastructure
+            'repositories':[],#end repository
+           'data':
+               {'type name':[],
+                   'format name':'foo',
+                   'metadata types in data headers':[],
+                   'registered data schema':[],
+                   'search on data':'foo'
+                },#end data
+           'metadata':
+               {'schema':[],
+                'URL':'foo',
+                'name':'foo',
+                'provenance fields included':[],
+                'machine readable provenance':'foo',
+                'categories defined in registries':'foo',
+                'PIDs included':'foo',
+                'primary storage format':'foo',
+                'export formats supported':[]
+                },#end metadata
+           'search engine indexing':'foo',
+           'exchange/harvesting methods':[],
+           'local search engine URL':'foo',
+           'external search engine types supported':[],
+           'access policy statements included':'foo',
+           'metadata longevity plan URL':'foo',
+           'machine actionable': 'foo',
+           'IRI of machine readable metadata of dataset': 'foo',
+           'vocabularies':[],# list
+            'data management plans':
+                {'specific DMP tools used': 'foo',
+                 'data publishing steps applied':[],
+                 'compliance validation service': 'foo'
+                 },#end data management
+            'data processing':
+                {'special data processing steps applied':[],
+                 'workflow frameworks applied': [],
+                 'distributed workflows tools used': [],
+                 'other analysis services offered':[],
+                 'data products offered':[]
+                 },#end data processing
+            'fairness':
+               {'data findability': 
+                    {'data findable':'foo',
+                    'gaps': []
+                     },
+                'data accessibility': 
+                    {'data accessible':'foo',
+                     'gaps':[]
+                     },
+                'data interoperability': 
+                     {'data interoperable':'foo',
+                      'gaps':[]
+                      },
+                'data re-usability': 
+                     {'data reusable':'foo',
+                       'gaps':[] 
+                     }
+              }#end fairness
+        }#end survey
+     }#end data
+
+
+#by setting hearder = 1, we skip the first row
+excelContent = pd.read_excel ('atmosphere.xlsx','ACTRIS',header = 1, encoding =sys.getfilesystemencoding()) 
+df = pd.DataFrame(excelContent)
+
+
+for col in colNumHeads:   
+    data['survey']['date'] = df.iat[0,col]# 0 corresponding to the 3rd row in the excel sheet
+    data['survey']['version'] = df.iat[1,col]
+    data['survey']['creator']['name'] = df.iat[2,col]
+    data['survey']['creator']['email'] = df.iat[3,col]
+    data['survey']['acronym'] = df.iat[4,col]
+    data['survey']['name'] = df.iat[5,col]
+    data['survey']['website'] = df.iat[6,col]
+    data['survey']['domain'] = df.iat[7,col]
+    data['survey']['URL/IRI of dataset'] = df.iat[8,col]
+    data['survey']['URL of discovery portal'] = df.iat[9,col]
+    
+    repository = {'URL':'foo',
+                 'name':'foo',
+                 'kind':[],
+                 'allocation':'foo',
+                 'software':[],
+                 'identifier':
+                   {'kind':'foo',
+                    'system':'foo',
+                    'landing page':'foo',
+                    'assigned':'foo',
+                    'provider':'foo',
+                    'includes metadata schema':[]
+                     },
+                 'certification methods':[],
+                 'policies':[],
+                 'registries':[],
+                 'persistency-guaranty':'foo', 
+                 'access mechanisms':
+                   {'authentication method':'foo',
+                    'access protocol URL':'foo',
+                    'access without costs':'foo',
+                    'own user database maintained':'foo',
+                    'person identification system':'foo',
+                    'major access technology supported':'foo',
+                    'authorization technique':'foo',
+                    'authorization for accessing content needed':'foo',
+                    'data licenses in use':[],
+                    'data license IRI':[],
+                    'metadata openly available':'foo'
+                     }
+                }
+    repository['URL'] = df.iat[10,col]
+    repository['name'] = df.iat[11,col]
+    repository['kind'].append(df.iat[12,col])
+    repository['allocation'] = df.iat[13,col]
+    repository['software'].append(df.iat[15,col])
+    repository['identifier']['kind'] = df.iat[17,col]#??
+    repository['identifier']['system'] = df.iat[19,col]#??
+    repository['identifier']['landing page'] = df.iat[20,col]
+    repository['identifier']['assigned'] = df.iat[21,col]
+    repository['identifier']['provider'] = df.iat[22,col]
+    repository['identifier']['includes metadata schema'].append(df.iat[23,col])
+    repository['certification methods'].append(df.iat[24,col])
+    repository['policies'].append(df.iat[25,col])
+    repository['registries'].append(df.iat[26,col])
+    repository['persistency-guaranty'] = df.iat[27,col]
+    repository['access mechanisms']['authentication method'] = df.iat[28,col]
+    repository['access mechanisms']['access protocol URL'] = df.iat[29,col]
+    repository['access mechanisms']['access without costs'] = df.iat[30,col]
+    repository['access mechanisms']['own user database maintained'] = df.iat[31,col]
+    repository['access mechanisms']['person identification system'] = df.iat[32,col]
+    repository['access mechanisms']['major access technology supported'] = df.iat[33,col]
+    repository['access mechanisms']['authorization technique'] = df.iat[34,col]
+    repository['access mechanisms']['authorization for accessing content needed'] = df.iat[35,col]
+    repository['access mechanisms']['data licenses in use'].append(df.iat[36,col])
+    repository['access mechanisms']['data license IRI'].append(df.iat[37,col])
+    repository['access mechanisms']['metadata openly available'] = df.iat[38,col]
+    data['survey']['repositories'].append(repository)
+
+    data['survey']['data']['type name'].append(df.iat[39,col])
+    data['survey']['data']['format name'] = df.iat[40,col]
+    data['survey']['data']['metadata types in data headers'].append(df.iat[41,col])
+    data['survey']['data']['registered data schema'].append(df.iat[42,col])
+    data['survey']['data']['search on data'] = df.iat[43,col]
+
+
+    #data[‘survey’]['metadata']['schema'] = df.iat[43,col]
+    data['survey']['metadata']['URL'] = df.iat[45,col]
+    data['survey']['metadata']['name'] = df.iat[46,col]
+    data['survey']['metadata']['provenance fields included'].append(df.iat[47,col])
+    data['survey']['metadata']['machine readable provenance'] = df.iat[48,col]
+    data['survey']['metadata']['categories defined in registries'] = df.iat[49,col]
+    data['survey']['metadata']['PIDs included'] = df.iat[50,col]
+    data['survey']['metadata']['primary storage format'] = df.iat[51,col]
+    data['survey']['metadata']['export formats supported'].append(df.iat[52,col])
+
+    data['survey']['search engine indexing'] = df.iat[54,col]
+    data['survey']['exchange/harvesting methods'].append(df.iat[55,col])
+    data['survey']['local search engine URL'] = df.iat[56,col]
+    data['survey']['external search engine types supported'].append(df.iat[57,col])
+    data['survey']['access policy statements included'] = df.iat[58,col]
+    data['survey']['metadata longevity plan URL'] = df.iat[59,col]
+    data['survey']['machine actionable'] = df.iat[60,col]
+    data['survey']['IRI of machine readable metadata of dataset'] = df.iat[61,col]
+
+    vocabulary={
+               'IRI': 'foo',
+               'name': 'foo',      
+               'type': 'foo',
+               'topic': 'foo',
+               'specification language': 'foo'
+                }
+    vocabulary['IRI'] = df.iat[65,col]
+    vocabulary['name'] =df.iat[66,col]
+    vocabulary['type'] = df.iat[67,col]
+    vocabulary['topic'] = df.iat[68,col]
+    vocabulary['specification language'] = df.iat[70,col]
+    data['survey']['vocabularies'].append(vocabulary)
+
+    data['survey']['data management plans']['specific DMP tools used'] =  df.iat[71,col]
+    data['survey']['data management plans']['data publishing steps applied'].append(df.iat[72,col])
+    data['survey']['data management plans']['compliance validation service'] = df.iat[73,col]
+
+
+    data['survey']['data processing']['special data processing steps applied'].append(df.iat[74,col])
+    data['survey']['data processing']['workflow frameworks applied'].append(df.iat[75,col])
+    data['survey']['data processing']['distributed workflows tools used'].append(df.iat[76,col])
+    data['survey']['data processing']['other analysis services offered'].append(df.iat[77,col])
+    data['survey']['data processing']['data products offered'].append(df.iat[78,col])
+
+    data['survey']['fairness']['data findability']['data findable'] = df.iat[79,col]
+    data['survey']['fairness']['data findability']['gaps'].append(df.iat[80,col])
+
+    data['survey']['fairness']['data accessibility']['data accessible'] = df.iat[81,col]
+    data['survey']['fairness']['data accessibility']['gaps'].append(df.iat[82,col])
+            
+    data['survey']['fairness']['data interoperability']['data interoperable'] = df.iat[83,col]
+    data['survey']['fairness']['data interoperability']['gaps'].append(df.iat[84,col])
+
+    data['survey']['fairness']['data re-usability']['data reusable'] = df.iat[85,col]
+    data['survey']['fairness']['data re-usability']['gaps'].append(df.iat[86,col])
+
+#print(data)
+
+outfile = open('data.yaml','w',encoding = sys.getfilesystemencoding())
+yaml.dump(data, outfile, default_flow_style=False, allow_unicode=True, sort_keys=False)

@@ -17,37 +17,19 @@ infrastructure:
   repositories:
   - URL: actris.nilu.no
     name: ACTRIS-ACCESS
-    kind:
-    - metadata repository
-    - .nan
-    - .nan
+    kind: []
     allocation: distributed
-    software:
-    - OracleDB
-    - .nan
-    - .nan
+    software: []
     identifier:
     - kind: none
       system: none
       landing page: 'no'
       assigned: none
       provider: none
-      includes metadata schema:
-      - planned
-      - .nan
-      - .nan
-    certification methods:
-    - none
-    - .nan
-    - .nan
-    policies:
-    - data policy
-    - data access
-    - .nan
-    registries:
-    - re3data
-    - .nan
-    - .nan
+      includes metadata schema: []
+    certification methods: []
+    policies: []
+    registries: []
     persistency-guaranty: 10 years
     access mechanisms:
       authentication method: local method
@@ -58,54 +40,30 @@ infrastructure:
       major access technology supported: HTTP
       authorization technique: password
       authorization for accessing content needed: partially
-      data licenses in use:
-      - none
-      - .nan
-      - .nan
+      data licenses in use: []
       data license IRI: http://actris.nilu.no/Content/Documents/DataPolicy.pdf
       metadata openly available: 'false'
     data:
-    - type name:
-      - time series
-      - .nan
-      - .nan
+    - type name: []
       preferred formats:
       - format name: Nasa Ames ASCII
-        metadata types in data headers:
-        - Nasa Ames format for data exchange
-        - standard NetCDF CF headers
-        - .nan
-      registered data schema:
-      - http://cedadocs.ceda.ac.uk
-      - .nan
-      - .nan
+        metadata types in data headers: []
+      registered data schema: []
       search on data: 'yes'
     metadata:
       schema:
       - URL: http://cedadocs.ceda.ac.uk/29/3/archive.tutorial.html
         name: Nasa Ames ASCII
-        provenance fields included:
-        - 'no'
-        - .nan
-        - .nan
+        provenance fields included: []
       machine readable provenance: 'no'
       categories defined in registries: 'no'
       PIDs included: 'no'
       primary storage format: relational database
-      export formats supported:
-      - NetCDF
-      - Nasa Ames
-      - .nan
+      export formats supported: []
       search engine indexing: 'no'
-      exchange/harvesting methods:
-      - 'no'
-      - .nan
-      - .nan
+      exchange/harvesting methods: []
       local search engine URL: actris.nilu.no
-      external search engine types supported:
-      - 'no'
-      - .nan
-      - .nan
+      external search engine types supported: []
       access policy statements included: 'no'
       metadata longevity plan URL: none
       machine actionable: 'no'
@@ -118,54 +76,24 @@ infrastructure:
       specification language: XML
     data management plans:
       specific DMP tools used: DMP template
-      data publishing steps applied:
-      - none
-      - .nan
-      - .nan
+      data publishing steps applied: []
       compliance validation service: none
     data processing:
-      special data processing steps applied:
-      - none
-      - .nan
-      - .nan
-      workflow frameworks applied:
-      - none
-      - .nan
-      - .nan
-      distributed workflows tools used:
-      - none
-      - .nan
-      - .nan
-      other analysis services offered:
-      - Google Analytics
-      - .nan
-      - .nan
-      data products offered:
-      - elaborated products
-      - .nan
-      - .nan
+      special data processing steps applied: []
+      workflow frameworks applied: []
+      distributed workflows tools used: []
+      other analysis services offered: []
+      data products offered: []
     fairness:
       data findability:
         data findable: 'no'
-        gaps:
-        - PIDs
-        - discovery metadata
-        - uptake in central resources
+        gaps: []
       data accessibility:
         data accessible: 'yes'
-        gaps:
-        - machine accessibility
-        - .nan
-        - .nan
+        gaps: []
       data interoperability:
         data interoperable: 'no'
-        gaps:
-        - harmonising vocabularies
-        - harmonising data models
-        - improving vocabularies
+        gaps: []
       data re-usability:
         data reusable: 'no'
-        gaps:
-        - provenance information
-        - usage licence
-        - improving vocabulary
+        gaps: []

@@ -14,6 +14,8 @@ from pandas import ExcelFile
 import io
 
 
+
+
 #mapping from excel column to index
 Letter2Number = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8,
                  'J':9, 'K':10, 'L':11, 'M':12, 'N':13, 'O':14, 'P':15, 'Q':16,
@@ -25,7 +27,7 @@ Letter2Number = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8,
 
 
 
-columns = input('please input the columns you want to grab contents from,\n each column separated by a comma, \n Both captial and small letters are fine. \n Like F,I \n')
+columns = input('please input the columns where each repository is,\n each column separated by a comma, \n Both captial and small letters are fine. \n Like F,I \n')
 cols = columns.strip().split(',')
 UCols = []
 for col in cols:
@@ -41,218 +43,269 @@ for col in UCols:
 
 
 data = {'survey':
-        {  'date': 'yyyy-mm-dd',
-           'version': 1.0,
-            'creator':
+        {
+        'date': 'yyyy-mm-dd',
+         'version': 1.0,
+         'creator':
                {'name': 'foo',
                 'email':'foo'
-               },#end creator
-            'infrastructure':
-               {'acronym':'foo',
-                'name':'foo',
-                'website':'foo',
-                'domain':['foo','foo'],#list
-                'URL/IRI of dataset':'foo',
-                'URL of discovery portal':'foo'
-               },#end infrastructure
-            'repositories':[],#end repository
-           'data':
-               {  'type_name':[],
-                   'format_name':'foo',
-                   'metadata_types_in':[],
-                   'registered_data':[],
-                   'search_on_data':'foo'
-                },#end data
-           'metadata':
-               {'schema':[],
-                'URL':'foo',
-                'name':'foo',
-                'provenance_fields':[],
-                'machine_readable':'foo',
-                'categories_defined':'foo',
-                'PIDs_included':'foo',
-                'primary_storage':'foo',
-                'export_format':[]
-                },#end metadata
-           'search_engine':'foo',
-           'exchange':[],
-           'local_search':'foo',
-           'external_search':[],
-           'access_policy':'foo',
-           'metadata_longevity':'foo',
-           'machine_actionable': 'foo',
-           'IRI_of_machine': 'foo',
-           'vocabularies':[],# list
-            'data_management_plans':
-                {'specific_DMO_tools': 'foo',
-                 'data_publishing':[],
-                 'compliance': 'foo'
-                 },#end data management
-            'data processing':
-                {'special_data':[],
-             'workflow': [],
-                 'distributed_workflows': [],
-                 'other_analysis':[],
-                 'data_products':[]
-                 },#end data processing
-            'fairness':
-               {'data_findability': 
-                    {'data_findable':'foo',
-                    'gaps': []
-                     },
-                'data_accessibility': 
-                    {'data_accessible':'foo',
-                     'gaps':[]
-                     },
-                'data_interoperability': 
-                     {'data_interoperable':'foo',
-                      'gaps':[]
-                      },
-                'data_re-usability': 
-                     {'data_reusable':'foo',
-                       'gaps':[] 
-                     }
-              }#end fairness
-        }#end survey
-     }#end data
+               }#end creator
+        },#end survey
+        'infrastructure':
+        {
+        'acronym':'foo',
+         'name':'foo',
+         'website':'foo',
+         'domain':[],#list
+         'URL/IRI of dataset':'foo',
+         'URL of discovery portal':'foo',
+         'repositories':[]
+        }#end infrastructure
+     }#end
 
 
-#by setting hearder = 1, we skip the first row
-excelContent = pd.read_excel ('atmosphere.xlsx','ACTRIS',header = 1, encoding =sys.getfilesystemencoding()) 
+#hearder = 0, indicates the first row is header
+excelContent = pd.read_excel ('actris.xlsx','ACTRIS',header = 0, encoding =sys.getfilesystemencoding()) 
 df = pd.DataFrame(excelContent)
 
 
-for col in colNumHeads:   
-    data['survey']['date'] = df.iat[0,col]# 0 corresponding to the 3rd row in the excel sheet
-    data['survey']['version'] = df.iat[1,col]
-    data['survey']['creator']['name'] = df.iat[2,col]
-    data['survey']['creator']['email'] = df.iat[3,col]
-    data['survey']['infrastructure']['acronym'] = df.iat[4,col]
-    data['survey']['infrastructure']['name'] = df.iat[5,col]
-    data['survey']['infrastructure']['website'] = df.iat[6,col]
-    data['survey']['infrastructure']['domain'] = df.iat[7,col]
-    data['survey']['infrastructure']['URL/IRI of dataset'] = df.iat[8,col]
-    data['survey']['infrastructure']['URL of discovery portal'] = df.iat[9,col]
-    
-    repository = {'URL':'foo',
-                 'name':'foo',
-                 'kind':[],
-                 'system':'foo',
-                 'landingpage':'foo',
-                 'assigned':'foo',
-                 'provider':'foo',
-                 'include_metadata':[],
-                 'certification':[],
-                 'policies':[],
-                 'registries':[],
-                 'persistency':'foo',
-                 'access_mechanism':
-                   {'authentication':'foo',
-                    'access_protocol':'foo',
-                    'access_without':'foo',
-                    'own_user_database':'foo',
-                    'ORCID':'foo',
-                    'major-access':'foo',
-                    'authorization':'foo',
-                    'authorization_for_accessing_content':'foo',
-                    'data_license_in_use':[],
-                    'data_license_iri':[],
-                    'metadata_openly':'foo'
-                     }
-                }
-    repository['URL'] = df.iat[10,col]
-    repository['name'] = df.iat[11,col]
-    repository['kind'].append(df.iat[12,col])
-    repository['system'] = df.iat[19,col]#??
-    repository['landingpage'] = df.iat[20,col]
-    repository['assigned'] = df.iat[21,col]
-    repository['provider'] = df.iat[22,col]
-    repository['include_metadata'].append(df.iat[23,col])
-    repository['certification'].append(df.iat[24,col])
-    repository['policies'] .append(df.iat[25,col])
-    repository['registries'].append(df.iat[26,col])
-    repository['persistency'] = df.iat[27,col]
-    repository['access_mechanism']['authentication'] = df.iat[28,col]
-    repository['access_mechanism']['access_protocol'] = df.iat[29,col]
-    repository['access_mechanism']['access_without'] = df.iat[30,col]
-    repository['access_mechanism']['own_user_database'] = df.iat[31,col]
-    repository['access_mechanism']['ORCID'] = df.iat[32,col]
-    repository['access_mechanism']['major_access'] = df.iat[33,col]
-    repository['access_mechanism']['authorization'] = df.iat[34,col]
-    repository['access_mechanism']['authorization_for_accessing_content'] = df.iat[35,col]
-    repository['access_mechanism']['data_license_in_use'].append(df.iat[36,col])
-    repository['access_mechanism']['data_license_iri'].append(df.iat[37,col])
-    repository['access_mechanism']['metadata_openly'] = df.iat[38,col]
-    data['survey']['repositories'].append(repository)
+my_itr = iter(colNumHeads)
 
-    data['survey']['data']['type_name'].append(df.iat[39,col])
-    data['survey']['data']['format_name'] = df.iat[40,col]
-    data['survey']['data']['metadata_types_in'].append(df.iat[41,col])
-    data['survey']['data']['registered_data'].append(df.iat[42,col])
-    data['survey']['data']['search_on_data'] = df.iat[43,col]
+for col in colNumHeads:
+    #print(col)
+    nextcol = colNumHeads[colNumHeads.index(col)-len(colNumHeads)+1]
+    #print(col, nextcol)
+    if(col < nextcol):
+        i = 0 #i indicatic the starting row, because some excel files starts at different rows
+        print(df.iat[0,col])
+        print(df.iat[1,col])
+        data['survey']['date'] = df.iat[i+1,col]#
+        data['survey']['version'] = df.iat[i+2,col]
+        data['survey']['creator']['name'] = df.iat[i+3,col]
+        data['survey']['creator']['email'] = df.iat[i+1+3,col]
+        data['infrastructure']['acronym'] = df.iat[i+1+4,col]
+        data['infrastructure']['name'] = df.iat[i+1+5,col]
+        data['infrastructure']['website'] = df.iat[i+1+6,col]
+        data['infrastructure']['domain'] = df.iat[i+1+7,col]
+        data['infrastructure']['URL/IRI of dataset'] = df.iat[i+1+8,col]
+        data['infrastructure']['URL of discovery portal'] = df.iat[i+1+9,col]
+        
+        #to fill in infrastructure, some inner dict inside it should be defined and filled first recursively
+        
+
+        repository = {'URL':'foo',
+                     'name':'foo',
+                     'kind':[],
+                     'allocation':'foo',
+                     'software':[],
+                     'identifier':[],
+                     'certification methods':[],
+                     'policies':[],
+                     'registries':[],
+                     'persistency-guaranty':'foo', 
+                     'access mechanisms':
+                       {'authentication method':'foo',
+                        'access protocol URL':'foo',
+                        'access without costs':'foo',
+                        'own user database maintained':'foo',
+                        'person identification system':'foo',
+                        'major access technology supported':'foo',
+                        'authorization technique':'foo',
+                        'authorization for accessing content needed':'foo',
+                        'data licenses in use':[],
+                        'data license IRI':'foo',
+                        'metadata openly available':'foo'
+                         },
+                     'data':[],
+                     'metadata':
+                       {'schema':[],
+                        'machine readable provenance':'foo',
+                        'categories defined in registries':'foo',
+                        'PIDs included':'foo',
+                        'primary storage format':'foo',
+                        'export formats supported':[],
+                        'search engine indexing':'foo',
+                        'exchange/harvesting methods':[],
+                        'local search engine URL':'foo',
+                        'external search engine types supported':[],
+                        'access policy statements included':'foo',
+                        'metadata longevity plan URL':'foo',
+                        'machine actionable': 'foo',
+                        'IRI of machine readable metadata of dataset': 'foo'
+                        },#end metadata
+                     'vocabularies':[],# list
+                     'data management plans':
+                         {'specific DMP tools used': 'foo',
+                          'data publishing steps applied':[],
+                          'compliance validation service': 'foo'
+                         },#end data management
+                     'data processing':
+                         {'special data processing steps applied':[],
+                          'workflow frameworks applied': [],
+                          'distributed workflows tools used': [],
+                          'other analysis services offered':[],
+                          'data products offered':[]
+                         },#end data processing
+                     'fairness':
+                         {'data findability': 
+                           {'data findable':'foo',
+                            'gaps': []
+                            },
+                          'data accessibility': 
+                           {'data accessible':'foo',
+                            'gaps':[]
+                            },
+                          'data interoperability': 
+                           {'data interoperable':'foo',
+                            'gaps':[]
+                            },
+                          'data re-usability': 
+                           {'data reusable':'foo',
+                            'gaps':[] 
+                           }
+                          }#end fairness
+                    }#end repository
+        repository['URL'] = df.iat[i+1+10,col]
+        repository['name'] = df.iat[i+1+11,col]
+        for index in range(col,nextcol):
+            repository['kind'].append(df.iat[i+1+12,index])
+        repository['allocation'] = df.iat[i+1+13,col]
+        for index in range(col,nextcol):
+            repository['software'].append(df.iat[i+1+15,index])
+        one_indentifier = {'kind':'foo',
+                        'system':'foo',
+                        'landing page':'foo',
+                        'assigned':'foo',
+                        'provider':'foo',
+                        'includes metadata schema':[]
+                         }
+        one_indentifier['kind'] = df.iat[i+1+17,col]#??
+        one_indentifier['system'] = df.iat[i+1+19,col]#??
+        one_indentifier['landing page'] = df.iat[i+1+20,col]
+        one_indentifier['assigned'] = df.iat[i+1+21,col]
+        one_indentifier['provider'] = df.iat[i+1+22,col]
+        for index in range(col,nextcol):
+            one_indentifier['includes metadata schema'].append(df.iat[i+1+23,index])
+        repository['identifier'].append(one_indentifier)
+
+        for index in range(col,nextcol):
+            repository['certification methods'].append(df.iat[i+1+24,index])
+            #print(df.iat[24,index])
+            repository['policies'].append(df.iat[i+1+25,index])
+            #print(df.iat[25,index])
+            repository['registries'].append(df.iat[i+1+26,index])
+        #print(repository)        
+        repository['persistency-guaranty'] = df.iat[i+1+27,col]
+        repository['access mechanisms']['authentication method'] = df.iat[i+1+28,col]
+        repository['access mechanisms']['access protocol URL'] = df.iat[i+1+29,col]
+        repository['access mechanisms']['access without costs'] = df.iat[i+1+30,col]
+        repository['access mechanisms']['own user database maintained'] = df.iat[i+1+31,col]
+        repository['access mechanisms']['person identification system'] = df.iat[i+1+32,col]
+        repository['access mechanisms']['major access technology supported'] = df.iat[i+1+33,col]
+        repository['access mechanisms']['authorization technique'] = df.iat[i+1+34,col]
+        repository['access mechanisms']['authorization for accessing content needed'] = df.iat[i+1+35,col]
+        for index in range(col,nextcol):
+            repository['access mechanisms']['data licenses in use'].append(df.iat[i+1+36,index])
+        repository['access mechanisms']['data license IRI'] = df.iat[i+1+37,col]
+        repository['access mechanisms']['metadata openly available'] = df.iat[i+1+38,col]
+
+        one_preferredformat = {'format name':'foo',
+                           'metadata types in data headers':[]
+                       }
+        one_data = {'type name':[],
+                    'preferred formats':[],
+                    'registered data schema':[],
+                    'search on data':'foo'
+                    }#end data
+        
+        one_preferredformat['format name'] = df.iat[i+1+40,col]
+        for index in range(col,nextcol):
+            one_preferredformat['metadata types in data headers'].append(df.iat[i+1+41,index])
+
+        for index in range(col,nextcol):
+            one_data['type name'].append(df.iat[i+1+39,index])
+        one_data['preferred formats'].append(one_preferredformat)
+        for index in range(col,nextcol):
+            one_data['registered data schema'].append(df.iat[i+1+42,index])
+        one_data['search on data'] = df.iat[i+1+43,col]
+        repository['data'].append(one_data)
 
 
-    #data['survey']['metadata']['schema'] = df.iat[43,col]
-    data['survey']['metadata']['URL'] = df.iat[45,col]
-    data['survey']['metadata']['name'] = df.iat[46,col]
-    data['survey']['metadata']['provenance_fields'].append(df.iat[47,col])
-    data['survey']['metadata']['machine_readable'] = df.iat[48,col]
-    data['survey']['metadata']['categories_defined'] = df.iat[49,col]
-    data['survey']['metadata']['PIDs_included'] = df.iat[50,col]
-    data['survey']['metadata']['primary_storage'] = df.iat[51,col]
-    data['survey']['metadata']['export_format'].append(df.iat[52,col])
+        one_schema = {'URL':'foo',
+                      'name':'foo',
+                      'provenance fields included':[]
+                    }
 
-    data['survey']['search_engine'] = df.iat[54,col]
-    data['survey']['exchange'].append(df.iat[55,col])
-    data['survey']['local_search'] = df.iat[56,col]
-    data['survey']['external_search'].append(df.iat[57,col])
-    data['survey']['access_policy'] = df.iat[58,col]
-    data['survey']['metadata_longevity'] = df.iat[59,col]
-    data['survey']['machine_actionable'] = df.iat[60,col]
-    data['survey']['IRI_of_machine'] = df.iat[61,col]
+        #data[ësurveyí]['metadata']['schema'] = df.iat[43,col]
+        one_schema['URL'] = df.iat[i+1+45,col]
+        one_schema['name'] = df.iat[i+1+46,col]
+        for index in range(col,nextcol):
+            one_schema['provenance fields included'].append(df.iat[i+1+47,index])
+        repository['metadata']['schema'].append(one_schema)
+        repository['metadata']['machine readable provenance'] = df.iat[i+1+48,col]
+        repository['metadata']['categories defined in registries'] = df.iat[i+1+49,col]
+        repository['metadata']['PIDs included'] = df.iat[i+1+50,col]
+        repository['metadata']['primary storage format'] = df.iat[i+1+51,col]
+        for index in range(col,nextcol):
+            repository['metadata']['export formats supported'].append(df.iat[i+1+52,index])
 
-    vocabulary={
-               'IRI': 'foo',
-               'name': 'foo',      
-               'type': 'foo',
-               'topic': 'foo',
-               'specification language': 'foo'
-                }
-    vocabulary['IRI'] = df.iat[65,col]
-    vocabulary['name'] =df.iat[66,col]
-    vocabulary['type'] = df.iat[67,col]
-    vocabulary['topic'] = df.iat[68,col]
-    vocabulary['specification language'] = df.iat[70,col]
-    data['survey']['vocabularies'].append(vocabulary)
+        repository['metadata']['search engine indexing'] = df.iat[i+1+54,col]
+        for index in range(col,nextcol):
+            repository['metadata']['exchange/harvesting methods'].append(df.iat[i+1+55,index])
+        repository['metadata']['local search engine URL'] = df.iat[i+1+56,col]
+        for index in range(col,nextcol):
+            repository['metadata']['external search engine types supported'].append(df.iat[i+1+57,index])
+        repository['metadata']['access policy statements included'] = df.iat[i+1+58,col]
+        repository['metadata']['metadata longevity plan URL'] = df.iat[i+1+59,col]
+        repository['metadata']['machine actionable'] = df.iat[i+1+60,col]
+        repository['metadata']['IRI of machine readable metadata of dataset'] = df.iat[i+1+61,col]
 
-    data['survey']['data_management_plans']['specific_DMO_tools'] =  df.iat[71,col]
-    data['survey']['data_management_plans']['data_publishing'].append(df.iat[72,col])
-    data['survey']['data_management_plans']['compliance'] = df.iat[73,col]
+        vocabulary={
+                   'IRI': 'foo',
+                   'name': 'foo',      
+                   'type': 'foo',
+                   'topic': 'foo',
+                   'specification language': 'foo'
+                    }
+        vocabulary['IRI'] = df.iat[i+1+65,col]
+        vocabulary['name'] =df.iat[i+1+66,col]
+        vocabulary['type'] = df.iat[i+1+67,col]
+        vocabulary['topic'] = df.iat[i+1+68,col]
+        vocabulary['specification language'] = df.iat[i+1+70,col]
+        repository['vocabularies'].append(vocabulary)
 
-
-    data['survey']['data processing']['special_data'].append(df.iat[74,col])
-    data['survey']['data processing']['workflow'].append(df.iat[75,col])
-    data['survey']['data processing']['distributed_workflows'].append(df.iat[76,col])
-    data['survey']['data processing']['other_analysis'].append(df.iat[77,col])
-    data['survey']['data processing']['data_products'].append(df.iat[78,col])
-
-    data['survey']['fairness']['data_findability']['data_findable'] = df.iat[79,col]
-    data['survey']['fairness']['data_findability']['gaps'].append(df.iat[80,col])
-
-    data['survey']['fairness']['data_accessibility']['data_accessible'] = df.iat[81,col]
-    data['survey']['fairness']['data_accessibility']['gaps'].append(df.iat[82,col])
-            
-    data['survey']['fairness']['data_interoperability']['data_interoperable'] = df.iat[83,col]
-    data['survey']['fairness']['data_interoperability']['gaps'].append(df.iat[84,col])
-
-    data['survey']['fairness']['data_re-usability']['data_reusable'] = df.iat[85,col]
-    data['survey']['fairness']['data_re-usability']['gaps'].append(df.iat[86,col])
-
-#print(data)
+        repository['data management plans']['specific DMP tools used'] =  df.iat[i+1+71,col]
+        for index in range(col,nextcol):
+            repository['data management plans']['data publishing steps applied'].append(df.iat[i+1+72,index])
+        repository['data management plans']['compliance validation service'] = df.iat[i+1+73,col]
 
 
+        for index in range(col,nextcol):
+            repository['data processing']['special data processing steps applied'].append(df.iat[i+1+74,index])
+            repository['data processing']['workflow frameworks applied'].append(df.iat[i+1+75,index])
+            repository['data processing']['distributed workflows tools used'].append(df.iat[i+1+76,index])
+            repository['data processing']['other analysis services offered'].append(df.iat[i+1+77,index])
+            repository['data processing']['data products offered'].append(df.iat[i+1+78,index])
 
+        repository['fairness']['data findability']['data findable'] = df.iat[i+1+79,col]
+        for index in range(col,nextcol):
+            repository['fairness']['data findability']['gaps'].append(df.iat[i+1+80,index])
+
+        repository['fairness']['data accessibility']['data accessible'] = df.iat[i+1+81,col]
+        for index in range(col,nextcol):
+            repository['fairness']['data accessibility']['gaps'].append(df.iat[i+1+82,index])
+                
+        repository['fairness']['data interoperability']['data interoperable'] = df.iat[i+1+83,col]
+        for index in range(col,nextcol):
+            repository['fairness']['data interoperability']['gaps'].append(df.iat[i+1+84,index])
+
+        repository['fairness']['data re-usability']['data reusable'] = df.iat[i+1+85,col]
+        for index in range(col,nextcol):
+            repository['fairness']['data re-usability']['gaps'].append(df.iat[i+1+86,index])
+        #print(repository)
+        data['infrastructure']['repositories'].append(repository)
+
+print(data)
 
 outfile = open('data.txt','w',encoding = sys.getfilesystemencoding())
 yaml.dump(data, outfile, default_flow_style=False, allow_unicode=True, sort_keys=False)
-

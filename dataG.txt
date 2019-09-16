@@ -1,0 +1,96 @@
+survey:
+  date: .nan
+  version: .nan
+  creator:
+    name: .nan
+    email: .nan
+infrastructure:
+  acronym: .nan
+  name: .nan
+  website: .nan
+  domain: .nan
+  URL/IRI of dataset: .nan
+  URL of discovery portal: .nan
+  repositories:
+  - URL: ebas.nilu.no
+    name: ACTRIS - In-Situ unit
+    kind: []
+    allocation: centralized
+    software: []
+    identifier:
+    - kind: local ID
+      system: none
+      landing page: 'no'
+      assigned: planned
+      provider: none
+      includes metadata schema: []
+    certification methods: []
+    policies: []
+    registries: []
+    persistency-guaranty: .nan
+    access mechanisms:
+      authentication method: local method
+      access protocol URL: https://www.opendap.org/
+      access without costs: 'yes'
+      own user database maintained: 'yes'
+      person identification system: 'no'
+      major access technology supported: HTTP
+      authorization technique: password
+      authorization for accessing content needed: partially
+      data licenses in use: []
+      data license IRI: https://ebas-submit.nilu.no/Data-Policy
+      metadata openly available: 'yes'
+    data:
+    - type name: []
+      preferred formats:
+      - format name: Nasa Ames ASCII
+        metadata types in data headers: []
+      registered data schema: []
+      search on data: 'yes'
+    metadata:
+      schema:
+      - URL: https://www.iso.org/standard/67039.html
+        name: ISO 19115
+        provenance fields included: []
+      machine readable provenance: 'no'
+      categories defined in registries: partially
+      PIDs included: 'no'
+      primary storage format: relational database
+      export formats supported: []
+      search engine indexing: 'no'
+      exchange/harvesting methods: []
+      local search engine URL: ebas.nilu.no
+      external search engine types supported: []
+      access policy statements included: 'yes'
+      metadata longevity plan URL: none
+      machine actionable: 'yes'
+      IRI of machine readable metadata of dataset: https://thredds.nilu.no/thredds/iso/ebas/ZA0001G.20160101000000.20190211140714.uv_abs.ozone.air.3y.1h.ZA02L_thermo_4m.ZA02L_primary_standard_49i_PS.lev2.nc?catalog=http%3A%2F%2Fthredds.nilu.no%2Fthredds%2Fcatalog%2Febas%2Fcatalog.html&dataset=EBAS%2FZA0001G.20160101000000.20190211140714.uv_abs.ozone.air.3y.1h.ZA02L_thermo_4m.ZA02L_primary_standard_49i_PS.lev2.nc
+    vocabularies:
+    - IRI: http://cfconventions.org/latest.html
+      name: CF standard names
+      type: thesaurus
+      topic: domain-specific
+      specification language: XML
+    data management plans:
+      specific DMP tools used: none
+      data publishing steps applied: []
+      compliance validation service: 'no'
+    data processing:
+      special data processing steps applied: []
+      workflow frameworks applied: []
+      distributed workflows tools used: []
+      other analysis services offered: []
+      data products offered: []
+    fairness:
+      data findability:
+        data findable: partially
+        gaps: []
+      data accessibility:
+        data accessible: 'yes'
+        gaps: []
+      data interoperability:
+        data interoperable: partially
+        gaps: []
+      data re-usability:
+        data reusable: partially
+        gaps: []
