@@ -97,8 +97,9 @@ for col in colNumHeads:
                 data['infrastructure']['name'] = df.iat[i+1+5,col]
         if 'nan' not in str(df.iat[i+1+6,col]):
                 data['infrastructure']['website'] = df.iat[i+1+6,col]
-        if 'nan' not in str(df.iat[i+1+7,col]):
-                data['infrastructure']['domain'] = df.iat[i+1+7,col]
+        for index in range(col,nextcol):
+                if 'nan' not in str(df.iat[i+1+7,index]):
+                    data['infrastructure']['domain'].append(df.iat[i+1+7,index])
         if 'nan' not in str(df.iat[i+1+8,col]):
                 data['infrastructure']['URL/IRI of dataset'] = df.iat[i+1+8,col]
         if 'nan' not in str(df.iat[i+1+9,col]):
@@ -178,13 +179,18 @@ for col in colNumHeads:
                            }
                           }#end fairness
                     }#end repository
-        repository['URL'] = df.iat[i+1+10,col]
-        repository['name'] = df.iat[i+1+11,col]
+        if 'nan' not in str(df.iat[i+1+10,col]):
+                repository['URL'] = df.iat[i+1+10,col]
+        if 'nan' not in str(df.iat[i+1+11,col]):
+                repository['name'] = df.iat[i+1+11,col]
         for index in range(col,nextcol):
-            repository['kind'].append(df.iat[i+1+12,index])
-        repository['allocation'] = df.iat[i+1+13,col]
+            if 'nan' not in str(df.iat[i+1+12,index]):
+                repository['kind'].append(df.iat[i+1+12,index])
+        if 'nan' not in str(df.iat[i+1+13,col]):
+                repository['allocation'] = df.iat[i+1+13,col]
         for index in range(col,nextcol):
-            repository['software'].append(df.iat[i+1+15,index])
+            if 'nan' not in str(df.iat[i+1+15,index]):
+                repository['software'].append(df.iat[i+1+15,index])
         one_indentifier = {'kind':'foo',
                         'system':'foo',
                         'landing page':'foo',
@@ -192,35 +198,56 @@ for col in colNumHeads:
                         'provider':'foo',
                         'includes metadata schema':[]
                          }
-        one_indentifier['kind'] = df.iat[i+1+17,col]#??
-        one_indentifier['system'] = df.iat[i+1+19,col]#??
-        one_indentifier['landing page'] = df.iat[i+1+20,col]
-        one_indentifier['assigned'] = df.iat[i+1+21,col]
-        one_indentifier['provider'] = df.iat[i+1+22,col]
+        if 'nan' not in str(df.iat[i+1+17,col]):
+            one_indentifier['kind'] = df.iat[i+1+17,col]#??
+        if 'nan' not in str(df.iat[i+1+19,col]):
+            one_indentifier['system'] = df.iat[i+1+19,col]#??
+        if 'nan' not in str(df.iat[i+1+20,col]):
+            one_indentifier['landing page'] = df.iat[i+1+20,col]
+        if 'nan' not in str(df.iat[i+1+21,col]):
+            one_indentifier['assigned'] = df.iat[i+1+21,col]
+        if 'nan' not in str(df.iat[i+1+22,col]):
+            one_indentifier['provider'] = df.iat[i+1+22,col]
         for index in range(col,nextcol):
-            one_indentifier['includes metadata schema'].append(df.iat[i+1+23,index])
+            if 'nan' not in str(df.iat[i+1+23,index]):
+                one_indentifier['includes metadata schema'].append(df.iat[i+1+23,index])
         repository['identifier'].append(one_indentifier)
 
         for index in range(col,nextcol):
-            repository['certification methods'].append(df.iat[i+1+24,index])
+            if 'nan' not in str(df.iat[i+1+24,index]):
+                repository['certification methods'].append(df.iat[i+1+24,index])
             #print(df.iat[24,index])
-            repository['policies'].append(df.iat[i+1+25,index])
+            if 'nan' not in str(df.iat[i+1+25,index]):
+                repository['policies'].append(df.iat[i+1+25,index])
             #print(df.iat[25,index])
-            repository['registries'].append(df.iat[i+1+26,index])
-        #print(repository)        
-        repository['persistency-guaranty'] = df.iat[i+1+27,col]
-        repository['access mechanisms']['authentication method'] = df.iat[i+1+28,col]
-        repository['access mechanisms']['access protocol URL'] = df.iat[i+1+29,col]
-        repository['access mechanisms']['access without costs'] = df.iat[i+1+30,col]
-        repository['access mechanisms']['own user database maintained'] = df.iat[i+1+31,col]
-        repository['access mechanisms']['person identification system'] = df.iat[i+1+32,col]
-        repository['access mechanisms']['major access technology supported'] = df.iat[i+1+33,col]
-        repository['access mechanisms']['authorization technique'] = df.iat[i+1+34,col]
-        repository['access mechanisms']['authorization for accessing content needed'] = df.iat[i+1+35,col]
+            if 'nan' not in str(df.iat[i+1+26,index]):
+                repository['registries'].append(df.iat[i+1+26,index])
+        #print(repository)
+        if 'nan' not in str(df.iat[i+1+27,col]):
+            repository['persistency-guaranty'] = df.iat[i+1+27,col]
+        if 'nan' not in str(df.iat[i+1+28,col]):
+            repository['access mechanisms']['authentication method'] = df.iat[i+1+28,col]
+        if 'nan' not in str(df.iat[i+1+29,col]):
+            repository['access mechanisms']['access protocol URL'] = df.iat[i+1+29,col]
+        if 'nan' not in str(df.iat[i+1+30,col]):
+            repository['access mechanisms']['access without costs'] = df.iat[i+1+30,col]
+        if 'nan' not in str(df.iat[i+1+31,col]):
+            repository['access mechanisms']['own user database maintained'] = df.iat[i+1+31,col]
+        if 'nan' not in str(df.iat[i+1+32,col]):
+            repository['access mechanisms']['person identification system'] = df.iat[i+1+32,col]
+        if 'nan' not in str(df.iat[i+1+33,col]):
+            repository['access mechanisms']['major access technology supported'] = df.iat[i+1+33,col]
+        if 'nan' not in str(df.iat[i+1+34,col]):
+            repository['access mechanisms']['authorization technique'] = df.iat[i+1+34,col]
+        if 'nan' not in str(df.iat[i+1+35,col]):
+            repository['access mechanisms']['authorization for accessing content needed'] = df.iat[i+1+35,col]
         for index in range(col,nextcol):
-            repository['access mechanisms']['data licenses in use'].append(df.iat[i+1+36,index])
-        repository['access mechanisms']['data license IRI'] = df.iat[i+1+37,col]
-        repository['access mechanisms']['metadata openly available'] = df.iat[i+1+38,col]
+            if 'nan' not in str(df.iat[i+1+36,index]):
+                repository['access mechanisms']['data licenses in use'].append(df.iat[i+1+36,index])
+        if 'nan' not in str(df.iat[i+1+37,col]):
+            repository['access mechanisms']['data license IRI'] = df.iat[i+1+37,col]
+        if 'nan' not in str(df.iat[i+1+38,col]):
+            repository['access mechanisms']['metadata openly available'] = df.iat[i+1+38,col]
 
         one_preferredformat = {'format name':[],
                            'metadata types in data headers':[]
@@ -231,16 +258,21 @@ for col in colNumHeads:
                     'search on data':'foo'
                     }#end data
         for index in range(col,nextcol):
-            one_preferredformat['format name'].append(df.iat[i+1+40,index])
+            if 'nan' not in str(df.iat[i+1+40,index]):
+                one_preferredformat['format name'].append(df.iat[i+1+40,index])
         for index in range(col,nextcol):
-            one_preferredformat['metadata types in data headers'].append(df.iat[i+1+41,index])
+            if 'nan' not in str(df.iat[i+1+41,index]):
+                one_preferredformat['metadata types in data headers'].append(df.iat[i+1+41,index])
 
         for index in range(col,nextcol):
-            one_data['type name'].append(df.iat[i+1+39,index])
+            if 'nan' not in str(df.iat[i+1+39,index]):
+                one_data['type name'].append(df.iat[i+1+39,index])
         one_data['preferred formats'].append(one_preferredformat)
         for index in range(col,nextcol):
-            one_data['registered data schema'].append(df.iat[i+1+42,index])
-        one_data['search on data'] = df.iat[i+1+43,col]
+            if 'nan' not in str(df.iat[i+1+42,index]):
+                one_data['registered data schema'].append(df.iat[i+1+42,index])
+        if 'nan' not in str(df.iat[i+1+43,col]):
+            one_data['search on data'] = df.iat[i+1+43,col]
         repository['data'].append(one_data)
 
 
@@ -250,28 +282,44 @@ for col in colNumHeads:
                     }
 
         #data[ësurveyí]['metadata']['schema'] = df.iat[43,col]
-        one_schema['URL'] = df.iat[i+1+45,col]
-        one_schema['name'] = df.iat[i+1+46,col]
+        if 'nan' not in str(df.iat[i+1+45,col]):
+            one_schema['URL'] = df.iat[i+1+45,col]
+        if 'nan' not in str(df.iat[i+1+46,col]):
+            one_schema['name'] = df.iat[i+1+46,col]
         for index in range(col,nextcol):
-            one_schema['provenance fields included'].append(df.iat[i+1+47,index])
+            if 'nan' not in str(df.iat[i+1+47,index]):
+                one_schema['provenance fields included'].append(df.iat[i+1+47,index])
         repository['metadata']['schema'].append(one_schema)
-        repository['metadata']['machine readable provenance'] = df.iat[i+1+48,col]
-        repository['metadata']['categories defined in registries'] = df.iat[i+1+49,col]
-        repository['metadata']['PIDs included'] = df.iat[i+1+50,col]
-        repository['metadata']['primary storage format'] = df.iat[i+1+51,col]
+        if 'nan' not in str(df.iat[i+1+48,col]):
+            repository['metadata']['machine readable provenance'] = df.iat[i+1+48,col]
+        if 'nan' not in str(df.iat[i+1+49,col]):
+            repository['metadata']['categories defined in registries'] = df.iat[i+1+49,col]
+        if 'nan' not in str(df.iat[i+1+50,col]):
+            repository['metadata']['PIDs included'] = df.iat[i+1+50,col]
+        if 'nan' not in str(df.iat[i+1+51,col]):
+            repository['metadata']['primary storage format'] = df.iat[i+1+51,col]
         for index in range(col,nextcol):
-            repository['metadata']['export formats supported'].append(df.iat[i+1+52,index])
+            if 'nan' not in str(df.iat[i+1+52,index]):
+                repository['metadata']['export formats supported'].append(df.iat[i+1+52,index])
 
-        repository['metadata']['search engine indexing'] = df.iat[i+1+54,col]
+        if 'nan' not in str(df.iat[i+1+54,col]):
+            repository['metadata']['search engine indexing'] = df.iat[i+1+54,col]
         for index in range(col,nextcol):
-            repository['metadata']['exchange/harvesting methods'].append(df.iat[i+1+55,index])
-        repository['metadata']['local search engine URL'] = df.iat[i+1+56,col]
+            if 'nan' not in str(df.iat[i+1+55,index]):
+                repository['metadata']['exchange/harvesting methods'].append(df.iat[i+1+55,index])
+        if 'nan' not in str(df.iat[i+1+56,col]):
+            repository['metadata']['local search engine URL'] = df.iat[i+1+56,col]
         for index in range(col,nextcol):
-            repository['metadata']['external search engine types supported'].append(df.iat[i+1+57,index])
-        repository['metadata']['access policy statements included'] = df.iat[i+1+58,col]
-        repository['metadata']['metadata longevity plan URL'] = df.iat[i+1+59,col]
-        repository['metadata']['machine actionable'] = df.iat[i+1+60,col]
-        repository['metadata']['IRI of machine readable metadata of dataset'] = df.iat[i+1+61,col]
+            if 'nan' not in str(df.iat[i+1+57,index]):
+                repository['metadata']['external search engine types supported'].append(df.iat[i+1+57,index])
+        if 'nan' not in str(df.iat[i+1+58,col]):
+            repository['metadata']['access policy statements included'] = df.iat[i+1+58,col]
+        if 'nan' not in str(df.iat[i+1+59,col]):
+            repository['metadata']['metadata longevity plan URL'] = df.iat[i+1+59,col]
+        if 'nan' not in str(df.iat[i+1+60,col]):
+            repository['metadata']['machine actionable'] = df.iat[i+1+60,col]
+        if 'nan' not in str(df.iat[i+1+61,col]):
+            repository['metadata']['IRI of machine readable metadata of dataset'] = df.iat[i+1+61,col]
 
         vocabulary={
                    'IRI': 'foo',
@@ -280,41 +328,62 @@ for col in colNumHeads:
                    'topic': 'foo',
                    'specification language': 'foo'
                     }
-        vocabulary['IRI'] = df.iat[i+1+65,col]
-        vocabulary['name'] =df.iat[i+1+66,col]
-        vocabulary['type'] = df.iat[i+1+67,col]
-        vocabulary['topic'] = df.iat[i+1+68,col]
-        vocabulary['specification language'] = df.iat[i+1+70,col]
+        if 'nan' not in str(df.iat[i+1+65,col]):
+            vocabulary['IRI'] = df.iat[i+1+65,col]
+        if 'nan' not in str(df.iat[i+1+66,col]):
+            vocabulary['name'] =df.iat[i+1+66,col]
+        if 'nan' not in str(df.iat[i+1+67,col]):
+            vocabulary['type'] = df.iat[i+1+67,col]
+        if 'nan' not in str(df.iat[i+1+68,col]):
+            vocabulary['topic'] = df.iat[i+1+68,col]
+        if 'nan' not in str(df.iat[i+1+70,col]):
+            vocabulary['specification language'] = df.iat[i+1+70,col]
         repository['vocabularies'].append(vocabulary)
 
-        repository['data management plans']['specific DMP tools used'] =  df.iat[i+1+71,col]
+        if 'nan' not in str(df.iat[i+1+71,col]):
+            repository['data management plans']['specific DMP tools used'] =  df.iat[i+1+71,col]
         for index in range(col,nextcol):
-            repository['data management plans']['data publishing steps applied'].append(df.iat[i+1+72,index])
-        repository['data management plans']['compliance validation service'] = df.iat[i+1+73,col]
+            if 'nan' not in str(df.iat[i+1+72,index]):
+                repository['data management plans']['data publishing steps applied'].append(df.iat[i+1+72,index])
+        if 'nan' not in str(df.iat[i+1+73,col]):
+            repository['data management plans']['compliance validation service'] = df.iat[i+1+73,col]
 
 
         for index in range(col,nextcol):
-            repository['data processing']['special data processing steps applied'].append(df.iat[i+1+74,index])
-            repository['data processing']['workflow frameworks applied'].append(df.iat[i+1+75,index])
-            repository['data processing']['distributed workflows tools used'].append(df.iat[i+1+76,index])
-            repository['data processing']['other analysis services offered'].append(df.iat[i+1+77,index])
-            repository['data processing']['data products offered'].append(df.iat[i+1+78,index])
+            if 'nan' not in str(df.iat[i+1+74,index]):
+                repository['data processing']['special data processing steps applied'].append(df.iat[i+1+74,index])
+            if 'nan' not in str(df.iat[i+1+75,index]):
+                repository['data processing']['workflow frameworks applied'].append(df.iat[i+1+75,index])
+            if 'nan' not in str(df.iat[i+1+76,index]):
+                repository['data processing']['distributed workflows tools used'].append(df.iat[i+1+76,index])
+            if 'nan' not in str(df.iat[i+1+77,index]):
+                repository['data processing']['other analysis services offered'].append(df.iat[i+1+77,index])
+            if 'nan' not in str(df.iat[i+1+78,index]):
+                repository['data processing']['data products offered'].append(df.iat[i+1+78,index])
 
-        repository['fairness']['data findability']['data findable'] = df.iat[i+1+79,col]
+        if 'nan' not in str(df.iat[i+1+79,col]):
+            repository['fairness']['data findability']['data findable'] = df.iat[i+1+79,col]
         for index in range(col,nextcol):
-            repository['fairness']['data findability']['gaps'].append(df.iat[i+1+80,index])
+            if 'nan' not in str(df.iat[i+1+80,index]):
+                repository['fairness']['data findability']['gaps'].append(df.iat[i+1+80,index])
 
-        repository['fairness']['data accessibility']['data accessible'] = df.iat[i+1+81,col]
+        if 'nan' not in str(df.iat[i+1+81,col]):
+            repository['fairness']['data accessibility']['data accessible'] = df.iat[i+1+81,col]
         for index in range(col,nextcol):
-            repository['fairness']['data accessibility']['gaps'].append(df.iat[i+1+82,index])
-                
-        repository['fairness']['data interoperability']['data interoperable'] = df.iat[i+1+83,col]
+            if 'nan' not in str(df.iat[i+1+82,index]):
+                repository['fairness']['data accessibility']['gaps'].append(df.iat[i+1+82,index])
+        
+        if 'nan' not in str(df.iat[i+1+83,col]):
+            repository['fairness']['data interoperability']['data interoperable'] = df.iat[i+1+83,col]
         for index in range(col,nextcol):
-            repository['fairness']['data interoperability']['gaps'].append(df.iat[i+1+84,index])
+            if 'nan' not in str(df.iat[i+1+84,index]):
+                repository['fairness']['data interoperability']['gaps'].append(df.iat[i+1+84,index])
 
-        repository['fairness']['data re-usability']['data reusable'] = df.iat[i+1+85,col]
+        if 'nan' not in str(df.iat[i+1+85,col]):
+            repository['fairness']['data re-usability']['data reusable'] = df.iat[i+1+85,col]
         for index in range(col,nextcol):
-            repository['fairness']['data re-usability']['gaps'].append(df.iat[i+1+86,index])
+            if 'nan' not in str(df.iat[i+1+86,index]):
+                repository['fairness']['data re-usability']['gaps'].append(df.iat[i+1+86,index])
         #print(repository)
         data['infrastructure']['repositories'].append(repository)
 
