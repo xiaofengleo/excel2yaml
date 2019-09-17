@@ -222,7 +222,7 @@ for col in colNumHeads:
         repository['access mechanisms']['data license IRI'] = df.iat[i+1+37,col]
         repository['access mechanisms']['metadata openly available'] = df.iat[i+1+38,col]
 
-        one_preferredformat = {'format name':'foo',
+        one_preferredformat = {'format name':[],
                            'metadata types in data headers':[]
                        }
         one_data = {'type name':[],
@@ -230,8 +230,8 @@ for col in colNumHeads:
                     'registered data schema':[],
                     'search on data':'foo'
                     }#end data
-        
-        one_preferredformat['format name'] = df.iat[i+1+40,col]
+        for index in range(col,nextcol):
+            one_preferredformat['format name'].append(df.iat[i+1+40,index])
         for index in range(col,nextcol):
             one_preferredformat['metadata types in data headers'].append(df.iat[i+1+41,index])
 
