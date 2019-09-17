@@ -27,7 +27,13 @@ Letter2Number = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8,
 
 
 
-columns = input('please input the columns where each repository is,\n each column separated by a comma, \n Both captial and small letters are fine. \n Like F,I \n')
+columns = input("""Please input the columns where each repository starts, 
+Please also input the clolumn after the ending columb,
+For example, in actris.xlsx, two repositories starting from D, G respectively,
+Suppose the 2nd repository start from G till J,
+Then please input D,G,K,
+Each column separated by a comma, white space will be removed automatically,
+Both captial and small letters are accepted.""")
 cols = columns.strip().split(',')
 UCols = []
 for col in cols:
@@ -37,11 +43,9 @@ for col in cols:
 colNumHeads = []
 for col in UCols:
     colNumHeads.append(Letter2Number[col])
-#print(colNumHeads)
+print(colNumHeads)
 
 #dictionary to hold the yaml structure
-
-
 data = {'survey':
         {
         'date': 'yyyy-mm-dd',
@@ -72,27 +76,36 @@ df = pd.DataFrame(excelContent)
 my_itr = iter(colNumHeads)
 
 for col in colNumHeads:
-    #print(col)
+    print(col)
     nextcol = colNumHeads[colNumHeads.index(col)-len(colNumHeads)+1]
-    #print(col, nextcol)
+    print(col, nextcol)
     if(col < nextcol):
         i = 0 #i indicatic the starting row, because some excel files starts at different rows
-        #print(df.iat[0,col])
-        #print(df.iat[1,col])
-        data['survey']['date'] = df.iat[i+1,col]#
-        data['survey']['version'] = df.iat[i+2,col]
-        data['survey']['creator']['name'] = df.iat[i+3,col]
-        data['survey']['creator']['email'] = df.iat[i+1+3,col]
-        data['infrastructure']['acronym'] = df.iat[i+1+4,col]
-        data['infrastructure']['name'] = df.iat[i+1+5,col]
-        data['infrastructure']['website'] = df.iat[i+1+6,col]
-        data['infrastructure']['domain'] = df.iat[i+1+7,col]
-        data['infrastructure']['URL/IRI of dataset'] = df.iat[i+1+8,col]
-        data['infrastructure']['URL of discovery portal'] = df.iat[i+1+9,col]
+        print(df.iat[0,col])
+        print(df.iat[1,col])
+        if 'nan' not in str(df.iat[i+1+0,col]):
+                data['survey']['date'] = df.iat[i+1+0,col]#
+        if 'nan' not in str(df.iat[i+1+1,col]):
+                data['survey']['version'] = df.iat[i+1+1,col]
+        if 'nan' not in str(df.iat[i+1+2,col]):
+                data['survey']['creator']['name'] = df.iat[i+1+2,col]
+        if 'nan' not in str(df.iat[i+1+3,col]):
+                data['survey']['creator']['email'] = df.iat[i+1+3,col]
+        if 'nan' not in str(df.iat[i+1+4,col]):
+                data['infrastructure']['acronym'] = df.iat[i+1+4,col]
+        if 'nan' not in str(df.iat[i+1+5,col]):
+                data['infrastructure']['name'] = df.iat[i+1+5,col]
+        if 'nan' not in str(df.iat[i+1+6,col]):
+                data['infrastructure']['website'] = df.iat[i+1+6,col]
+        if 'nan' not in str(df.iat[i+1+7,col]):
+                data['infrastructure']['domain'] = df.iat[i+1+7,col]
+        if 'nan' not in str(df.iat[i+1+8,col]):
+                data['infrastructure']['URL/IRI of dataset'] = df.iat[i+1+8,col]
+        if 'nan' not in str(df.iat[i+1+9,col]):
+                data['infrastructure']['URL of discovery portal'] = df.iat[i+1+9,col]
         
-        #to fill in infrastructure, some inner dict inside it should be defined and filled first recursively
-        
-
+        #to fill in infrastructure, some inner dict inside it should
+        #be defined and filled first recursively
         repository = {'URL':'foo',
                      'name':'foo',
                      'kind':[],
